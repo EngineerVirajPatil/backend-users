@@ -46,16 +46,27 @@ app.get('/users',(req, res)=>{
 res.json({users});
 });
 
-app.get('/users/:id',(req, res)=>{
+app.get('/users/id/:id',(req, res)=>{
 let id=parseInt(req.params.id);
 let user=users.find(userObj=>userObj.id===id);
 if(user){
     res.status(200).json({user})
 }
 else{
-res.status(404).json({message:"No Data Found"});
+res.status(404).json({message:"No Data Found with id:"+id});
 }
 })
+
+app.get('/users/username/:username',(req, res)=>{
+    let username=req.params.username;
+    let user=users.find(userObj=>userObj.username===username);
+    if(user){
+        res.status(200).json({user})
+    }
+    else{
+    res.status(404).json({message:"No Data Found with username: "+username});
+    }
+    })
 
 const PORT=3000;
 app.listen(PORT,()=>{
